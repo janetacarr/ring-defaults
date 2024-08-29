@@ -1,4 +1,4 @@
-# Ring-Defaults [![Build Status](https://github.com/ring-clojure/ring-defaults/actions/workflows/test.yml/badge.svg)](https://github.com/ring-clojure/ring-defaults/actions/workflows/test.yml)
+# Ring-Defaults
 
 Knowing what middleware to add to a Ring application, and in what
 order, can be difficult and prone to error.
@@ -7,15 +7,26 @@ This library attempts to automate the process, by providing sensible
 and secure default configurations of Ring middleware for both websites
 and HTTP APIs.
 
+## Fork Differences
+
+This fork of ring-defaults adds ability to exempt routes from anti-forgery policies. 
+It's most useful for webhooks. Here's an example using Reitit:
+```clojure
+{:middleware [[parameters/parameters-middleware]
+              [wrap-defaults (assoc-in site-defaults
+                                          [:security :anti-forgery]
+                                          {:exempt-routes ["/path/to/webhook"]})]]}
+```
+
 ## Installation
 
 Add the following dependency to your deps.edn file:
 
-    ring/ring-defaults {:mvn/version "0.4.0"}
+    com.janetacarr/ring-defaults {:mvn/version "0.4.0"}
 
 Or to your Leiningen project file:
 
-    [ring/ring-defaults "0.4.0"]
+    [com.janetacarr/ring-defaults "0.4.0"]
 
 ## Basic Usage
 
